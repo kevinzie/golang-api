@@ -2,15 +2,24 @@ package main
 
 import (
 	"github.com/gofiber/fiber/v2"
+	_ "github.com/joho/godotenv/autoload" // Load env automatically
 	"os"
-	"project/scratch/pkg/configs"
+	"project/scratch/pkg/config"
+	"project/scratch/pkg/routes"
 	"project/scratch/pkg/utils"
 )
 
 func main() {
-	config := configs.FiberConfig()
+	fiberConfig := config.FiberConfig()
+	app := fiber.New(fiberConfig)
 
-	app := fiber.New(config)
+	//database.Config
+
+	err := config.Connect()
+	if err != nil {
+		return
+	}
+	routes.PublicRoutes(app)
 
 	if os.Getenv("APP_ENV") == "dev" {
 		utils.StartServer(app)

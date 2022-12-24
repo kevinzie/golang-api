@@ -10,13 +10,12 @@ func ConnectionURLBuilder(n string) (string, error) {
 	var url string
 	switch n {
 	case "postgres": //postgres connection
-		url = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=%s TimeZone=Asia/Jakarta",
+		url = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s TimeZone=Asia/Jakarta",
 			os.Getenv("DB_HOST"),
 			os.Getenv("DB_USER"),
 			os.Getenv("DB_PASSWORD"),
 			os.Getenv("DB_NAME"),
-			os.Getenv("DB_PORT"),
-			os.Getenv("DB_SSL_MODE"))
+			os.Getenv("DB_PORT"))
 	case "mysql":
 		url = fmt.Sprintf(
 			"%s:%s@tcp(%s:%s)/%s",
